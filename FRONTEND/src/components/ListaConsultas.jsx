@@ -15,7 +15,7 @@ function ListaConsultas({ consultas = [], onUpdate }) {
       axios.delete(`https://veterinaria-6svw.onrender.com/consultas/${id}`)
         .then(res => {
           alert(res.data.message || 'Consulta eliminada con éxito');
-          onUpdate(); 
+          onUpdate();
         })
         .catch(err => console.error('Error al eliminar consulta:', err));
     }
@@ -36,10 +36,10 @@ function ListaConsultas({ consultas = [], onUpdate }) {
   return (
     <div>
       {consultaSeleccionada && (
-        <EditarConsulta 
-          consulta={consultaSeleccionada} 
-          onUpdate={manejarActualizacion} 
-          onCancel={() => setConsultaSeleccionada(null)} 
+        <EditarConsulta
+          consulta={consultaSeleccionada}
+          onUpdate={manejarActualizacion}
+          onCancel={() => setConsultaSeleccionada(null)}
         />
       )}
 
@@ -53,7 +53,7 @@ function ListaConsultas({ consultas = [], onUpdate }) {
                 <th>Mascota</th>
                 <th>Especie</th>
                 <th>Diagnóstico</th>
-                <th>Precio</th>
+                <th>Precio (USD)</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
               </tr>
@@ -61,13 +61,12 @@ function ListaConsultas({ consultas = [], onUpdate }) {
             <tbody>
               {!consultas || consultas.length === 0 ? (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', color: '#a0aec0' }}>
+                  <td colSpan="7" className="empty-state">
                     No hay consultas registradas.
                   </td>
                 </tr>
               ) : (
                 consultas.map(c => {
-               
                   const nombreVet = c.veterinario || c.nombre_veterinario || (c.veterinario_id ? `Vet ID: ${c.veterinario_id}` : '-');
                   const nombreMascota = c.mascota || c.nombre_mascota || (c.mascota_id ? `Mascota ID: ${c.mascota_id}` : '-');
                   const especieMascota = c.especie || c.especie_mascota || '-';
@@ -75,39 +74,31 @@ function ListaConsultas({ consultas = [], onUpdate }) {
 
                   return (
                     <tr key={c.id}>
-                      <td><strong>{nombreVet}</strong></td>
-                      <td>{nombreMascota}</td>
-                      <td>{especieMascota}</td>
-                      <td>{diagnosticoMed}</td>
-                      <td className="price-tag">${formatearPrecio(c.precio)}</td>
-                      <td>{formatearFecha(c.fecha)}</td>
-                      <td style={{ display: 'flex', gap: '6px' }}>
-                        <button 
-                          onClick={() => setConsultaSeleccionada(c)}
-                          style={{
-                            backgroundColor: '#3182ce',
-                            color: 'white',
-                            border: 'none',
-                            padding: '6px 12px',
-                            borderRadius: '4px',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          Editar
-                        </button>
-                        <button 
-                          onClick={() => eliminarConsulta(c.id)}
-                          style={{
-                            backgroundColor: '#e53e3e',
-                            color: 'white',
-                            border: 'none',
-                            padding: '6px 12px',
-                            borderRadius: '4px',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          Eliminar
-                        </button>
+                      <td data-label="Veterinario"><strong>{nombreVet}</strong></td>
+                      <td data-label="Mascota">{nombreMascota}</td>
+                      <td data-label="Especie">
+                        {especieMascota !== '-'
+                          ? <span className="species-badge">{especieMascota}</span>
+                          : '-'}
+                      </td>
+                      <td data-label="Diagnóstico">{diagnosticoMed}</td>
+                      <td data-label="Precio" className="price-tag">${formatearPrecio(c.precio)}</td>
+                      <td data-label="Fecha">{formatearFecha(c.fecha)}</td>
+                      <td data-label="Acciones">
+                        <div className="acciones">
+                          <button
+                            className="btn btn-sm btn-edit"
+                            onClick={() => setConsultaSeleccionada(c)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            className="btn btn-sm btn-delete"
+                            onClick={() => eliminarConsulta(c.id)}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

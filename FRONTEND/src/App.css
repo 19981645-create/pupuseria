@@ -1,42 +1,46 @@
 /* ==========================================================================
-   Sistema de Gestión Veterinaria — Estilo Moderno Oscuro (Slate & Emerald)
+   Sistema de Gestión Veterinaria — Estilo claro, amigable (menta, turquesa, coral)
    ========================================================================== */
 
-:root {
-  color-scheme: dark;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap');
 
-  /* Superficies estilo Slate */
-  --bg: #141820;
-  --surface: #222834;
-  --surface-2: #1b202a;
-  --surface-hover: #2c3444;
-  --input-bg: #353d4d;
+:root {
+  color-scheme: light;
+
+  /* Superficies */
+  --bg: #f3fbfa;
+  --surface: #ffffff;
+  --surface-2: #eaf7f5;
+  --surface-hover: #f1fbf9;
+  --input-bg: #ffffff;
+  --mint: #e6f6f1;
 
   /* Texto */
-  --text: #f3f4f6;
-  --text-muted: #9ca3af;
-  --placeholder: #8c95a5;
+  --text: #1f2d3d;
+  --heading: #0b3050;
+  --text-muted: #6b7c8c;
+  --placeholder: #a3b1be;
 
   /* Bordes */
-  --border: #2e3646;
-  --border-strong: #454f62;
+  --border: #d7ebe8;
+  --border-strong: #a9d9d3;
 
-  /* Acciones (Verde Esmeralda) */
-  --primary: #00c875;
-  --primary-hover: #00b067;
+  /* Colores de marca */
+  --primary: #4ecdc4;
+  --primary-dark: #2fb5ab;
+  --primary-hover: #3bbfb5;
   --on-primary: #ffffff;
-  --danger: #e63946;
-  --danger-hover: #c92a37;
-  --on-danger: #ffffff;
-
-  /* Acentos */
-  --price: #00e680;
-  --focus-ring: rgba(0, 200, 117, 0.4);
+  --accent: #f98265;
+  --accent-hover: #ee6c4d;
+  --on-accent: #ffffff;
+  --yellow: #ffd84d;
+  --price: #1e9e93;
+  --focus-ring: rgba(78, 205, 196, 0.35);
 
   /* Forma y sombra */
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 8px 28px rgba(11, 48, 80, 0.08);
 }
 
 /* ---------- Base ---------- */
@@ -55,53 +59,108 @@ body {
   margin: 0;
   background-color: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+}
+
+h1,
+h2 {
+  font-family: 'Quicksand', 'Nunito', sans-serif;
+  color: var(--heading);
+}
+
+/* ---------- Hero / encabezado ---------- */
+
+.hero {
+  background: linear-gradient(180deg, #d9f3f0 0%, var(--bg) 100%);
+  padding: 48px 16px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* burbujas decorativas */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(78, 205, 196, 0.35);
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 90px;
+  height: 90px;
+  top: 24px;
+  left: 8%;
+}
+
+.hero::after {
+  width: 140px;
+  height: 140px;
+  bottom: -40px;
+  right: 10%;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 1.3rem + 2.4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero p {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--text-muted);
 }
 
 .container {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 16px 64px;
-}
-
-.container > h1 {
-  margin: 0 0 32px;
-  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.2rem);
-  font-weight: 700;
-  text-align: center;
-  color: var(--text);
-  letter-spacing: -0.02em;
+  padding: 24px 16px 64px;
 }
 
 h2 {
   position: relative;
-  margin: 0 0 24px;
-  font-size: 1.3rem;
+  margin: 0 0 28px;
+  font-size: 1.35rem;
   font-weight: 700;
   text-align: center;
-  color: var(--text);
-  padding-bottom: 10px;
+  padding-bottom: 12px;
 }
 
-/* Línea decorativa verde bajo los títulos de las tarjetas */
+/* línea decorativa coral bajo los títulos */
 .card > h2::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 36px;
+  width: 44px;
   height: 4px;
-  background-color: var(--primary);
+  background-color: var(--accent);
   border-radius: 2px;
 }
 
-/* Estado de carga */
 .loading {
   margin-top: 24px;
   text-align: center;
@@ -115,12 +174,21 @@ h2 {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 28px 24px;
+  padding: 32px 28px;
   margin-bottom: 28px;
 }
 
+.card-form {
+  border-top: 8px solid var(--primary);
+}
+
 .card-editing {
-  border: 2px solid var(--primary);
+  border: 2px solid var(--accent);
+  background: #fffaf8;
+}
+
+.card-editing > h2::after {
+  background-color: var(--primary);
 }
 
 /* ---------- Formularios ---------- */
@@ -139,6 +207,21 @@ h2 {
   grid-column: 1 / -1;
 }
 
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.form-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
 .form-grid select,
 .form-grid input {
   width: 100%;
@@ -147,7 +230,7 @@ h2 {
   font: inherit;
   color: var(--text);
   background-color: var(--input-bg);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
   transition: all 0.2s ease;
 }
@@ -169,6 +252,52 @@ h2 {
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
+/* ---------- Campo de precio con indicador de moneda ---------- */
+
+.input-group {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.input-group:hover {
+  border-color: var(--border-strong);
+}
+
+.input-group:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.input-group .input-addon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: var(--mint);
+  user-select: none;
+}
+
+.input-group .input-addon.suffix {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* el input interno no repite borde ni sombra */
+.form-grid .input-group input {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  flex: 1;
+  min-width: 0;
+}
+
 /* ---------- Botones ---------- */
 
 .btn-submit,
@@ -179,11 +308,13 @@ h2 {
   min-height: 48px;
   padding: 12px 24px;
   font: inherit;
-  font-weight: 600;
-  color: var(--on-primary);
-  background-color: var(--primary);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--on-accent);
+  background-color: var(--accent);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
@@ -195,8 +326,8 @@ h2 {
 
 .btn-submit:hover,
 .btn:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 4px 12px rgba(0, 200, 117, 0.25);
+  background-color: var(--accent-hover);
+  box-shadow: 0 6px 16px rgba(249, 130, 101, 0.35);
 }
 
 .btn-submit:active,
@@ -207,28 +338,36 @@ h2 {
 .btn-submit:focus-visible,
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(249, 130, 101, 0.35);
 }
 
 /* Variantes */
-.btn-delete,
-.btn-cancel {
-  color: var(--on-danger);
-  background-color: var(--danger);
+.btn-edit {
+  background-color: var(--primary);
 }
 
-.btn-delete:hover,
-.btn-cancel:hover {
-  background-color: var(--danger-hover);
-  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.25);
+.btn-edit:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(78, 205, 196, 0.4);
 }
 
-/* Botones compactos dentro de la tabla */
+.btn-cancel,
+.btn-delete {
+  background-color: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+
+.btn-cancel:hover,
+.btn-delete:hover {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
 .btn-sm {
   min-height: 36px;
-  padding: 6px 14px;
-  font-size: 0.88rem;
-  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
 }
 
 .form-actions {
@@ -240,14 +379,14 @@ h2 {
   flex: 1;
 }
 
-/* ---------- Tabla Adaptativa ---------- */
+/* ---------- Tabla ---------- */
 
 .table-container {
   width: 100%;
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--surface-2);
+  background: var(--surface);
 }
 
 .custom-table {
@@ -265,15 +404,18 @@ h2 {
 }
 
 .custom-table thead th {
-  position: sticky;
-  top: 0;
-  background: var(--surface-2);
-  color: var(--text-muted);
-  font-size: 0.75rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background: var(--bg);
 }
 
 .custom-table tbody tr:last-child td {
@@ -289,7 +431,7 @@ h2 {
 }
 
 .custom-table .empty-state {
-  padding: 32px 14px;
+  padding: 36px 14px;
   text-align: center;
   color: var(--text-muted);
 }
@@ -301,39 +443,53 @@ h2 {
   white-space: nowrap;
 }
 
+.species-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #fff3c4;
+  color: #7a5b00;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .acciones {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-/* ---------- Responsive (Móviles y Tablets) ---------- */
+/* ---------- Responsive ---------- */
 
 @media (max-width: 768px) {
+  .hero {
+    padding: 32px 12px 28px;
+  }
+
   .container {
     padding: 16px 12px 32px;
   }
 
   .card {
-    padding: 20px 16px;
-    border-radius: 12px;
+    padding: 22px 16px;
+    border-radius: 14px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
   }
 
   .form-actions {
     flex-direction: column;
   }
 
-  /* Conversión de la tabla a tarjetas en móviles */
-  .custom-table, 
-  .custom-table thead, 
-  .custom-table tbody, 
-  .custom-table th, 
-  .custom-table td, 
+  /* Tabla convertida en tarjetas */
+  .custom-table,
+  .custom-table thead,
+  .custom-table tbody,
+  .custom-table th,
+  .custom-table td,
   .custom-table tr {
     display: block;
   }
@@ -342,8 +498,9 @@ h2 {
     display: none;
   }
 
-  .custom-table tbody tr {
-    margin-bottom: 12px;
+  .custom-table tbody tr,
+  .custom-table tbody tr:nth-child(even) {
+    margin: 12px;
     padding: 12px 16px;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -365,12 +522,11 @@ h2 {
     justify-content: flex-end;
   }
 
-  /* Muestra la etiqueta según el atributo data-label del td */
   .custom-table td::before {
     content: attr(data-label);
     float: left;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
     color: var(--text-muted);
     margin-right: 12px;

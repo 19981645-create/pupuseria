@@ -42,12 +42,13 @@ function FormularioConsulta({ onConsultaAgregada }) {
   };
 
   return (
-    <div className="card">
+    <div className="card card-form">
       <h2>Registrar Nueva Consulta Médica</h2>
       <form onSubmit={handleSubmit} className="form-grid">
-        
+
         <div className="form-group">
-          <select name="veterinario_id" value={formData.veterinario_id} onChange={handleChange} required>
+          <label htmlFor="veterinario_id">Veterinario</label>
+          <select id="veterinario_id" name="veterinario_id" value={formData.veterinario_id} onChange={handleChange} required>
             <option value="">Seleccione Veterinario</option>
             {veterinarios.map(v => (
               <option key={v.id} value={v.id}>{v.nombre} - {v.especialidad}</option>
@@ -56,7 +57,8 @@ function FormularioConsulta({ onConsultaAgregada }) {
         </div>
 
         <div className="form-group">
-          <select name="mascota_id" value={formData.mascota_id} onChange={handleChange} required>
+          <label htmlFor="mascota_id">Mascota</label>
+          <select id="mascota_id" name="mascota_id" value={formData.mascota_id} onChange={handleChange} required>
             <option value="">Seleccione Mascota</option>
             {mascotas.map(m => (
               <option key={m.id} value={m.id}>{m.nombre} ({m.especie})</option>
@@ -65,35 +67,48 @@ function FormularioConsulta({ onConsultaAgregada }) {
         </div>
 
         <div className="form-group">
-          <input 
-            type="number" 
-            step="0.01" 
-            name="precio" 
-            placeholder="Costo ($)" 
-            value={formData.precio} 
-            onChange={handleChange} 
-            required 
-          />
+          <label htmlFor="precio">Costo de la consulta</label>
+          {/* Indicador de moneda: prefijo "$" y sufijo "USD" */}
+          <div className="input-group">
+            <span className="input-addon" aria-hidden="true">$</span>
+            <input
+              id="precio"
+              type="number"
+              step="0.01"
+              min="0"
+              name="precio"
+              placeholder="0.00"
+              value={formData.precio}
+              onChange={handleChange}
+              required
+            />
+            <span className="input-addon suffix" aria-hidden="true">USD</span>
+          </div>
+          <small className="form-hint">Ingrese el monto en dólares (ej. 25.00)</small>
         </div>
 
         <div className="form-group">
-          <input 
-            type="date" 
-            name="fecha" 
-            value={formData.fecha} 
-            onChange={handleChange} 
-            required 
+          <label htmlFor="fecha">Fecha</label>
+          <input
+            id="fecha"
+            type="date"
+            name="fecha"
+            value={formData.fecha}
+            onChange={handleChange}
+            required
           />
         </div>
 
         <div className="form-group full-width">
-          <input 
-            type="text" 
-            name="diagnostico" 
-            placeholder="Diagnóstico médico" 
-            value={formData.diagnostico} 
-            onChange={handleChange} 
-            required 
+          <label htmlFor="diagnostico">Diagnóstico</label>
+          <input
+            id="diagnostico"
+            type="text"
+            name="diagnostico"
+            placeholder="Diagnóstico médico"
+            value={formData.diagnostico}
+            onChange={handleChange}
+            required
           />
         </div>
 
