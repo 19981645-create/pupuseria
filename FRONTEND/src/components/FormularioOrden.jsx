@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function FormularioConsulta({ onConsultaAgregada }) {
+function FormularioOrden({ onOrdenAgregada }) {
   const [formData, setFormData] = useState({
-    veterinario_id: '',
-    mascota_id: '',
-    diagnostico: '',
+    cliente_id: '',
+    pupusa_id: '',
+    detalle_pedido: '',
     precio: '',
     fecha: ''
   });
 
-  const [veterinarios, setVeterinarios] = useState([]);
-  const [mascotas, setMascotas] = useState([]);
+  const [clientes, setClientes] = useState([]);
+  const [pupusas, setPupusas] = useState([]);
 
   useEffect(() => {
-    axios.get('https://veterinaria-6svw.onrender.com/veterinarios')
-      .then(res => setVeterinarios(res.data))
+    axios.get('https://veterinaria-6svw.onrender.com/clientes')
+      .then(res => setClientes(res.data))
       .catch(err => console.error(err));
 
-    axios.get('https://veterinaria-6svw.onrender.com/mascotas')
-      .then(res => setMascotas(res.data))
+    axios.get('https://veterinaria-6svw.onrender.com/pupusas')
+      .then(res => setPupusas(res.data))
       .catch(err => console.error(err));
   }, []);
 
@@ -32,42 +32,42 @@ function FormularioConsulta({ onConsultaAgregada }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://veterinaria-6svw.onrender.com/consultas', formData)
+    axios.post('https://veterinaria-6svw.onrender.com/ordenes', formData)
       .then(res => {
         alert(res.data.message);
-        setFormData({ veterinario_id: '', mascota_id: '', diagnostico: '', precio: '', fecha: '' });
-        if (onConsultaAgregada) onConsultaAgregada(); // Actualiza la lista si se pasa la prop
+        setFormData({ cliente_id: '', pupusa_id: '', detalle_pedido: '', precio: '', fecha: '' });
+        if (onOrdenAgregada) onOrdenAgregada(); // Actualiza la lista si se pasa la prop
       })
       .catch(err => console.error(err));
   };
 
   return (
     <div className="card card-form">
-      <h2>Registrar Nueva Consulta Médica</h2>
+      <h2>Registrar Nueva Orden</h2>
       <form onSubmit={handleSubmit} className="form-grid">
 
         <div className="form-group">
-          <label htmlFor="veterinario_id">Veterinario</label>
-          <select id="veterinario_id" name="veterinario_id" value={formData.veterinario_id} onChange={handleChange} required>
-            <option value="">Seleccione Veterinario</option>
-            {veterinarios.map(v => (
-              <option key={v.id} value={v.id}>{v.nombre} - {v.especialidad}</option>
+          <label htmlFor="cliente_id">Cliente</label>
+          <select id="cliente_id" name="cliente_id" value={formData.cliente_id} onChange={handleChange} required>
+            <option value="">Seleccione Cliente</option>
+            {clientes.map(c => (
+              <option key={c.id} value={c.id}>{c.nombre}</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="mascota_id">Mascota</label>
-          <select id="mascota_id" name="mascota_id" value={formData.mascota_id} onChange={handleChange} required>
-            <option value="">Seleccione Mascota</option>
-            {mascotas.map(m => (
-              <option key={m.id} value={m.id}>{m.nombre} ({m.especie})</option>
+          <label htmlFor="pupusa_id">Pupusa</label>
+          <select id="pupusa_id" name="pupusa_id" value={formData.pupusa_id} onChange={handleChange} required>
+            <option value="">Seleccione Pupusa</option>
+            {pupusas.map(p => (
+              <option key={p.id} value={p.id}>{p.nombre} ({p.especialidad})</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="precio">Costo de la consulta</label>
+          <label htmlFor="precio">Precio total de la orden</label>
           {/* Indicador de moneda: prefijo "$" y sufijo "USD" */}
           <div className="input-group">
             <span className="input-addon" aria-hidden="true">$</span>
@@ -84,7 +84,7 @@ function FormularioConsulta({ onConsultaAgregada }) {
             />
             <span className="input-addon suffix" aria-hidden="true">USD</span>
           </div>
-          <small className="form-hint">Ingrese el monto en dólares (ej. 25.00)</small>
+          <small className="form-hint">Ingrese el monto en dólares (ej. 5.00)</small>
         </div>
 
         <div className="form-group">
@@ -100,20 +100,20 @@ function FormularioConsulta({ onConsultaAgregada }) {
         </div>
 
         <div className="form-group full-width">
-          <label htmlFor="diagnostico">Diagnóstico</label>
+          <label htmlFor="detalle_pedido">Detalle del Pedido</label>
           <input
-            id="diagnostico"
+            id="detalle_pedido"
             type="text"
-            name="diagnostico"
-            placeholder="Diagnóstico médico"
-            value={formData.diagnostico}
+            name="detalle_pedido"
+            placeholder="Especificaciones (ej. 3 de revueltas con curtido extra)"
+            value={formData.detalle_pedido}
             onChange={handleChange}
             required
           />
         </div>
 
         <div className="form-group full-width">
-          <button type="submit" className="btn-submit">Registrar Consulta</button>
+          <button type="submit" className="btn-submit">Registrar Orden</button>
         </div>
 
       </form>
@@ -121,4 +121,4 @@ function FormularioConsulta({ onConsultaAgregada }) {
   );
 }
 
-export default FormularioConsulta;
+export default FormularioOrden;

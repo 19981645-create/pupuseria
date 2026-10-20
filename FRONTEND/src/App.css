@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Sistema de Gestión Veterinaria — Estilo claro, amigable (menta, turquesa, coral)
+   Sistema de Gestión — Pupusería Salvadoreña
+   Estilo cálido y artesanal (Maíz, Terracota, Madera, Hoja de Guineo)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap');
@@ -8,39 +9,43 @@
   color-scheme: light;
 
   /* Superficies */
-  --bg: #f3fbfa;
+  --bg: #fdfaf6;            /* Fondo crema claro */
   --surface: #ffffff;
-  --surface-2: #eaf7f5;
-  --surface-hover: #f1fbf9;
+  --surface-2: #f7f1e5;
+  --surface-hover: #fcf7ef;
   --input-bg: #ffffff;
-  --mint: #e6f6f1;
+  --maiz-light: #fff8e1;
 
   /* Texto */
-  --text: #1f2d3d;
-  --heading: #0b3050;
-  --text-muted: #6b7c8c;
-  --placeholder: #a3b1be;
+  --text: #3e2723;          /* Café tierra oscuro */
+  --heading: #2c1b18;
+  --text-muted: #795548;
+  --placeholder: #a1887f;
 
   /* Bordes */
-  --border: #d7ebe8;
-  --border-strong: #a9d9d3;
+  --border: #ede0d4;
+  --border-strong: #d7ccc8;
 
   /* Colores de marca */
-  --primary: #4ecdc4;
-  --primary-dark: #2fb5ab;
-  --primary-hover: #3bbfb5;
+  --primary: #f59e0b;       /* Amarillo Maíz / Dorado */
+  --primary-dark: #d97706;
+  --primary-hover: #fbbf24;
   --on-primary: #ffffff;
-  --accent: #f98265;
-  --accent-hover: #ee6c4d;
+  
+  --accent: #d97706;        /* Terracota / Barro */
+  --accent-hover: #b45309;
   --on-accent: #ffffff;
-  --yellow: #ffd84d;
-  --price: #1e9e93;
-  --focus-ring: rgba(78, 205, 196, 0.35);
+  
+  --badge-bg: #e8f5e9;      /* Verde hoja de banana / guineo */
+  --badge-text: #2e7d32;
+  
+  --price: #2e7d32;         /* Verde artesanal para el precio */
+  --focus-ring: rgba(245, 158, 11, 0.35);
 
   /* Forma y sombra */
   --radius: 18px;
   --radius-sm: 12px;
-  --shadow: 0 8px 28px rgba(11, 48, 80, 0.08);
+  --shadow: 0 8px 28px rgba(62, 39, 35, 0.08);
 }
 
 /* ---------- Base ---------- */
@@ -72,23 +77,23 @@ h2 {
   color: var(--heading);
 }
 
-/* ---------- Hero / encabezado ---------- */
+/* ---------- Hero / Encabezado ---------- */
 
 .hero {
-  background: linear-gradient(180deg, #d9f3f0 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #fef3c7 0%, var(--bg) 100%);
   padding: 48px 16px 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-/* burbujas decorativas */
+/* Burbujas / comales decorativos */
 .hero::before,
 .hero::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  border: 2px solid rgba(78, 205, 196, 0.35);
+  border: 2px solid rgba(245, 158, 11, 0.3);
   pointer-events: none;
 }
 
@@ -148,7 +153,7 @@ h2 {
   padding-bottom: 12px;
 }
 
-/* línea decorativa coral bajo los títulos */
+/* Línea decorativa bajo los títulos */
 .card > h2::after {
   content: "";
   position: absolute;
@@ -184,7 +189,7 @@ h2 {
 
 .card-editing {
   border: 2px solid var(--accent);
-  background: #fffaf8;
+  background: #fffaf5;
 }
 
 .card-editing > h2::after {
@@ -279,7 +284,7 @@ h2 {
   padding: 0 16px;
   font-weight: 700;
   color: var(--primary-dark);
-  background: var(--mint);
+  background: var(--maiz-light);
   user-select: none;
 }
 
@@ -289,7 +294,6 @@ h2 {
   color: var(--text-muted);
 }
 
-/* el input interno no repite borde ni sombra */
 .form-grid .input-group input {
   border: none;
   border-radius: 0;
@@ -327,7 +331,7 @@ h2 {
 .btn-submit:hover,
 .btn:hover {
   background-color: var(--accent-hover);
-  box-shadow: 0 6px 16px rgba(249, 130, 101, 0.35);
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35);
 }
 
 .btn-submit:active,
@@ -338,17 +342,18 @@ h2 {
 .btn-submit:focus-visible,
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(249, 130, 101, 0.35);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35);
 }
 
 /* Variantes */
 .btn-edit {
   background-color: var(--primary);
+  color: #ffffff;
 }
 
 .btn-edit:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 6px 16px rgba(78, 205, 196, 0.4);
+  background-color: var(--primary-dark);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
 }
 
 .btn-cancel,
@@ -443,12 +448,13 @@ h2 {
   white-space: nowrap;
 }
 
+/* Badge estilizado como hoja de guineo/banana */
 .species-badge {
   display: inline-block;
   padding: 2px 12px;
   border-radius: 999px;
-  background: #fff3c4;
-  color: #7a5b00;
+  background: var(--badge-bg);
+  color: var(--badge-text);
   font-size: 0.8rem;
   font-weight: 700;
 }

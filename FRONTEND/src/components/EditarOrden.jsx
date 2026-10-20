@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function EditarConsulta({ consulta, onUpdate, onCancel }) {
+function EditarOrden({ orden, onUpdate, onCancel }) {
 
-  const fechaFormateada = consulta.fecha ? consulta.fecha.split('T')[0] : '';
+  const fechaFormateada = orden.fecha ? orden.fecha.split('T')[0] : '';
 
   const [formData, setFormData] = useState({
-    veterinario_id: consulta.veterinario_id || '',
-    mascota_id: consulta.mascota_id || '',
-    diagnostico: consulta.diagnostico || '',
-    precio: consulta.precio || '',
+    cliente_id: orden.cliente_id || '',
+    pupusa_id: orden.pupusa_id || '',
+    detalle_pedido: orden.detalle_pedido || '',
+    precio: orden.precio || '',
     fecha: fechaFormateada
   });
 
-  const [veterinarios, setVeterinarios] = useState([]);
-  const [mascotas, setMascotas] = useState([]);
+  const [clientes, setClientes] = useState([]);
+  const [pupusas, setPupusas] = useState([]);
 
   useEffect(() => {
-    axios.get('https://veterinaria-6svw.onrender.com/veterinarios')
-      .then(res => setVeterinarios(res.data))
+    axios.get('https://veterinaria-6svw.onrender.com/clientes')
+      .then(res => setClientes(res.data))
       .catch(err => console.error(err));
 
-    axios.get('https://veterinaria-6svw.onrender.com/mascotas')
-      .then(res => setMascotas(res.data))
+    axios.get('https://veterinaria-6svw.onrender.com/pupusas')
+      .then(res => setPupusas(res.data))
       .catch(err => console.error(err));
   }, []);
 
@@ -35,41 +35,41 @@ function EditarConsulta({ consulta, onUpdate, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`https://veterinaria-6svw.onrender.com/consultas/${consulta.id}`, formData)
+    axios.put(`https://veterinaria-6svw.onrender.com/ordenes/${orden.id}`, formData)
       .then(res => {
-        alert(res.data.message || 'Consulta actualizada correctamente');
+        alert(res.data.message || 'Orden actualizada correctamente');
         onUpdate();
       })
-      .catch(err => console.error('Error al actualizar consulta:', err));
+      .catch(err => console.error('Error al actualizar orden:', err));
   };
 
   return (
     <div className="card card-editing">
-      <h2>Editar Consulta médica (ID: {consulta.id})</h2>
+      <h2>Editar Orden (ID: {orden.id})</h2>
       <form onSubmit={handleSubmit} className="form-grid">
 
         <div className="form-group">
-          <label htmlFor="edit_veterinario_id">Veterinario</label>
-          <select id="edit_veterinario_id" name="veterinario_id" value={formData.veterinario_id} onChange={handleChange} required>
-            <option value="">Seleccione Veterinario</option>
-            {veterinarios.map(v => (
-              <option key={v.id} value={v.id}>{v.nombre} - {v.especialidad}</option>
+          <label htmlFor="edit_cliente_id">Cliente</label>
+          <select id="edit_cliente_id" name="cliente_id" value={formData.cliente_id} onChange={handleChange} required>
+            <option value="">Seleccione Cliente</option>
+            {clientes.map(c => (
+              <option key={c.id} value={c.id}>{c.nombre}</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="edit_mascota_id">Mascota</label>
-          <select id="edit_mascota_id" name="mascota_id" value={formData.mascota_id} onChange={handleChange} required>
-            <option value="">Seleccione Mascota</option>
-            {mascotas.map(m => (
-              <option key={m.id} value={m.id}>{m.nombre} ({m.especie})</option>
+          <label htmlFor="edit_pupusa_id">Pupusa</label>
+          <select id="edit_pupusa_id" name="pupusa_id" value={formData.pupusa_id} onChange={handleChange} required>
+            <option value="">Seleccione Pupusa</option>
+            {pupusas.map(p => (
+              <option key={p.id} value={p.id}>{p.nombre} ({p.especialidad})</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="edit_precio">Costo de la consulta</label>
+          <label htmlFor="edit_precio">Precio total de la orden</label>
           {/* Indicador de moneda: prefijo "$" y sufijo "USD" */}
           <div className="input-group">
             <span className="input-addon" aria-hidden="true">$</span>
@@ -86,7 +86,7 @@ function EditarConsulta({ consulta, onUpdate, onCancel }) {
             />
             <span className="input-addon suffix" aria-hidden="true">USD</span>
           </div>
-          <small className="form-hint">Ingrese el monto en dólares (ej. 25.00)</small>
+          <small className="form-hint">Ingrese el monto en dólares (ej. 5.00)</small>
         </div>
 
         <div className="form-group">
@@ -102,12 +102,13 @@ function EditarConsulta({ consulta, onUpdate, onCancel }) {
         </div>
 
         <div className="form-group full-width">
-          <label htmlFor="edit_diagnostico">Diagnóstico</label>
+          <label htmlFor="edit_detalle_pedido">Detalle del Pedido</label>
           <input
-            id="edit_diagnostico"
+            id="edit_detalle_pedido"
             type="text"
-            name="diagnostico"
-            value={formData.diagnostico}
+            name="detalle_pedido"
+            placeholder="Especificaciones del pedido"
+            value={formData.detalle_pedido}
             onChange={handleChange}
             required
           />
@@ -123,4 +124,4 @@ function EditarConsulta({ consulta, onUpdate, onCancel }) {
   );
 }
 
-export default EditarConsulta;
+export default EditarOrden;

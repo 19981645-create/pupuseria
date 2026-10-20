@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import FormularioConsulta from './components/FormularioConsulta';
-import ListaConsultas from './components/ListaConsultas';
+import FormularioOrden from './components/FormularioOrden';
+import ListaOrdenes from './components/ListaOrdenes';
 
-const API_URL = 'https://veterinaria-6svw.onrender.com';
+const API_URL = 'https://pupuseria-api.onrender.com';
 
 function App() {
-  const [consultas, setConsultas] = useState([]);
+  const [ordenes, setOrdenes] = useState([]);
   const [cargando, setCargando] = useState(true);
 
-  const cargarConsultas = () => {
-    axios.get(`${API_URL}/consultas`)
+  const cargarOrdenes = () => {
+    axios.get(`${API_URL}/ordenes`)
       .then(res => {
-        setConsultas(res.data);
+        setOrdenes(res.data);
         setCargando(false);
       })
       .catch(err => {
-        console.error('Error al cargar consultas:', err);
+        console.error('Error al cargar ordenes:', err);
         setCargando(false);
       });
   };
 
   useEffect(() => {
-    cargarConsultas();
+    cargarOrdenes();
   }, []);
 
   return (
     <>
       <header className="hero">
-        <span className="hero-eyebrow">🐾 Cuidamos a tu mejor amigo</span>
-        <h1>Sistema de Gestión <span>Veterinaria</span></h1>
-        <p>Registra, consulta y administra las consultas médicas de tus pacientes en un solo lugar.</p>
+        <span className="hero-eyebrow">🫓 El auténtico sabor salvadoreño</span>
+        <h1>Sistema de Gestión <span>Pupusería</span></h1>
+        <p>Registra, consulta y administra los pedidos de tus clientes en un solo lugar.</p>
       </header>
 
       <main className="container">
-        {/* Pasamos la función cargarConsultas al formulario para que refresque la lista al guardar */}
-        <FormularioConsulta onConsultaAgregada={cargarConsultas} />
+        {/* Pasamos la función cargarOrdenes al formulario para que refresque la lista al guardar */}
+        <FormularioOrden onOrdenAgregada={cargarOrdenes} />
 
         {cargando ? (
-          <p className="loading">Cargando consultas médicas...</p>
+          <p className="loading">Cargando órdenes de pupusas...</p>
         ) : (
-          <ListaConsultas consultas={consultas} onUpdate={cargarConsultas} />
+          <ListaOrdenes ordenes={ordenes} onUpdate={cargarOrdenes} />
         )}
       </main>
     </>

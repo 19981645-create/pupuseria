@@ -22,102 +22,102 @@ const conexion = mysql.createPool({
 });
 
 app.get('/', (req, res) => {
-  res.send('API de la Veterinaria funcionando correctamente en Render 🚀');
+  res.send('API de la Pupusería funcionando correctamente en Render 🚀');
 });
 
-app.get('/consultas', (req, res) => {
+app.get('/ordenes', (req, res) => {
   const sql = `
     SELECT 
-      c.id, 
-      v.nombre AS veterinario, 
-      m.nombre AS mascota, 
-      m.especie, 
-      c.diagnostico, 
-      c.precio, 
-      DATE_FORMAT(c.fecha, '%Y-%m-%d') AS fecha,
-      c.veterinario_id,
-      c.mascota_id
-    FROM consultas c
-    LEFT JOIN veterinarios v ON c.veterinario_id = v.id
-    LEFT JOIN mascotas m ON c.mascota_id = m.id
-    ORDER BY c.id DESC
+      o.id, 
+      c.nombre AS cliente, 
+      p.nombre AS pupusa, 
+      p.especialidad, 
+      o.detalle_pedido, 
+      o.precio, 
+      DATE_FORMAT(o.fecha, '%Y-%m-%d') AS fecha,
+      o.cliente_id,
+      o.pupusa_id
+    FROM ordenes o
+    LEFT JOIN clientes c ON o.cliente_id = c.id
+    LEFT JOIN pupusas p ON o.pupusa_id = p.id
+    ORDER BY o.id DESC
   `;
 
   conexion.query(sql, (err, resultados) => {
     if (err) {
-      console.error('Error SQL en /consultas:', err);
-      return res.status(500).json({ error: 'Error al obtener consultas', detalle: err.message });
+      console.error('Error SQL en /ordenes:', err);
+      return res.status(500).json({ error: 'Error al obtener ordenes', detalle: err.message });
     }
     res.json(resultados);
   });
 });
 
-// GET /veterinarios y GET /mascotas
-app.get('/veterinarios', (req, res) => {
-  conexion.query('SELECT * FROM veterinarios', (err, r) => {
+// GET /clientes y GET /pupusas
+app.get('/clientes', (req, res) => {
+  conexion.query('SELECT * FROM clientes', (err, r) => {
     if (err) {
-      console.error('Error SQL en /veterinarios:', err);
-      return res.status(500).json({ error: 'Error al obtener veterinarios', detalle: err.message });
+      console.error('Error SQL en /clientes:', err);
+      return res.status(500).json({ error: 'Error al obtener clientes', detalle: err.message });
     }
     res.json(r);
   });
 });
 
-app.get('/mascotas', (req, res) => {
-  conexion.query('SELECT * FROM mascotas', (err, r) => {
+app.get('/pupusas', (req, res) => {
+  conexion.query('SELECT * FROM pupusas', (err, r) => {
     if (err) {
-      console.error('Error SQL en /mascotas:', err);
-      return res.status(500).json({ error: 'Error al obtener mascotas', detalle: err.message });
+      console.error('Error SQL en /pupusas:', err);
+      return res.status(500).json({ error: 'Error al obtener pupusas', detalle: err.message });
     }
     res.json(r);
   });
 });
 
-// POST /consultas
-app.post('/consultas', (req, res) => {
-  const { veterinario_id, mascota_id, diagnostico, precio, fecha } = req.body;
+// POST /ordenes
+app.post('/ordenes', (req, res) => {
+  const { cliente_id, pupusa_id, detalle_pedido, precio, fecha } = req.body;
   
   conexion.query(
-    'INSERT INTO consultas (veterinario_id, mascota_id, diagnostico, precio, fecha) VALUES (?, ?, ?, ?, ?)',
-    [veterinario_id, mascota_id, diagnostico, precio, fecha],
+    'INSERT INTO ordenes (cliente_id, pupusa_id, detalle_pedido, precio, fecha) VALUES (?, ?, ?, ?, ?)',
+    [cliente_id, pupusa_id, detalle_pedido, precio, fecha],
     (err, result) => {
       if (err) {
-        console.error('Error SQL al registrar consulta:', err);
-        return res.status(500).json({ error: 'Error al registrar consulta', detalle: err.message });
+        console.error('Error SQL al registrar orden:', err);
+        return res.status(500).json({ error: 'Error al registrar orden', detalle: err.message });
       }
-      res.status(201).json({ message: 'Consulta registrada correctamente', id: result.insertId });
+      res.status(201).json({ message: 'Orden registrada correctamente', id: result.insertId });
     }
   );
 });
 
-// PUT /consultas/:id (Actualizar consulta)
-app.put('/consultas/:id', (req, res) => {
+// PUT /ordenes/:id (Actualizar orden)
+app.put('/ordenes/:id', (req, res) => {
   const id = req.params.id;
-  const { veterinario_id, mascota_id, diagnostico, precio, fecha } = req.body;
+  const { cliente_id, pupusa_id, detalle_pedido, precio, fecha } = req.body;
 
   conexion.query(
-    'UPDATE consultas SET veterinario_id=?, mascota_id=?, diagnostico=?, precio=?, fecha=? WHERE id=?',
-    [veterinario_id, mascota_id, diagnostico, precio, fecha, id],
+    'UPDATE ordenes SET cliente_id=?, pupusa_id=?, detalle_pedido=?, precio=?, fecha=? WHERE id=?',
+    [cliente_id, pupusa_id, detalle_pedido, precio, fecha, id],
     (err) => {
       if (err) {
-        console.error('Error SQL al actualizar consulta:', err);
-        return res.status(500).json({ error: 'Error al actualizar consulta', detalle: err.message });
+        console.error('Error SQL al actualizar orden:', err);
+        return res.status(500).json({ error: 'Error al actualizar orden', detalle: err.message });
       }
-      res.json({ message: `Consulta con ID ${id} actualizada` });
+      res.json({ message: `Orden con ID ${id} actualizada` });
     }
   );
 });
 
-// DELETE /consultas/:id (Eliminar consulta)
-app.delete('/consultas/:id', (req, res) => {
+// DELETE /ordenes/:id (Eliminar orden)
+app.delete('/ordenes/:id', (req, res) => {
   const id = req.params.id;
 
-  conexion.query('DELETE FROM consultas WHERE id=?', [id], (err) => {
+  conexion.query('DELETE FROM ordenes WHERE id=?', [id], (err) => {
     if (err) {
-      console.error('Error SQL al eliminar consulta:', err);
-      return res.status(500).json({ error: 'Error al eliminar consulta', detalle: err.message });
+      console.error('Error SQL al eliminar orden:', err);
+      return res.status(500).json({ error: 'Error al eliminar orden', detalle: err.message });
     }
-    res.json({ message: `Consulta con ID ${id} eliminada` });
+    res.json({ message: `Orden con ID ${id} eliminada` });
   });
 });
 
