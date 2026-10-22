@@ -17,11 +17,11 @@ function EditarOrden({ orden, onUpdate, onCancel }) {
   const [pupusas, setPupusas] = useState([]);
 
   useEffect(() => {
-    axios.get('https://veterinaria-6svw.onrender.com/clientes')
+    axios.get('https://pupuseria-nbm3.onrender.com//clientes')
       .then(res => setClientes(res.data))
       .catch(err => console.error(err));
 
-    axios.get('https://veterinaria-6svw.onrender.com/pupusas')
+    axios.get('https://pupuseria-nbm3.onrender.com//pupusas')
       .then(res => setPupusas(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -35,7 +35,7 @@ function EditarOrden({ orden, onUpdate, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`https://veterinaria-6svw.onrender.com/ordenes/${orden.id}`, formData)
+    axios.put(`https://pupuseria-nbm3.onrender.com//ordenes/${orden.id}`, formData)
       .then(res => {
         alert(res.data.message || 'Orden actualizada correctamente');
         onUpdate();
