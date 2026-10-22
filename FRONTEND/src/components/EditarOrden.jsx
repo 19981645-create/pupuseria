@@ -1,29 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// Define la URL base de tu backend activo en Render
+const API_URL = 'https://pupuseria-1.onrender.com';
+
 function EditarOrden({ orden, onUpdate, onCancel }) {
 
-  const fechaFormateada = orden.fecha ? orden.fecha.split('T')[0] : '';
+  const fechaFormateada = orden && orden.fecha ? orden.fecha.split('T')[0] : '';
 
   const [formData, setFormData] = useState({
-    cliente_id: orden.cliente_id || '',
-    pupusa_id: orden.pupusa_id || '',
-    detalle_pedido: orden.detalle_pedido || '',
-    precio: orden.precio || '',
+    cliente_id: orden?.cliente_id || '',
+    pupusa_id: orden?.pupusa_id || '',
+    detalle_pedido: orden?.detalle_pedido || '',
+    precio: orden?.precio || '',
     fecha: fechaFormateada
   });
 
   const [clientes, setClientes] = useState([]);
   const [pupusas, setPupusas] = useState([]);
 
+  // Actualiza los campos si cambia la orden seleccionada
   useEffect(() => {
-    axios.get('https://pupuseria-nbm3.onrender.com/clientes')
-      .then(res => setClientes(res.data))
-      .catch(err => console.error(err));
+    if (orden) {
+      setFormData({
+        cliente_id: orden.cliente_id || '',
+        pupusa_id: orden.pupusa_id || '',
+        detalle_pedido: orden.detalle_pedido || '',
+        precio: orden.precio || '',
+        fecha: orden.fecha ? orden.fecha.split('T')[0] : ''
+      });
+    }
+  }, [orden]);
 
-    axios.get('https://pupuseria-nbm3.onrender.com/pupusas')
+  // Cargar clientes y pupusas al montar el componente
+  useEffect(() => {
+    axios.get(`${API_URL}/clientes`)
+      .then(res => setClientes(res.data))
+      .catch(err => console.error('Error al cargar clientes:', err));
+
+    axios.get(`${API_URL}/pupusas`)
       .then(res => setPupusas(res.data))
-      .catch(err => console.error(err));
+      .catch(err => console.error('Error al cargar pupusas:', err));
   }, []);
 
   const handleChange = (e) => {
@@ -35,13 +52,15 @@ function EditarOrden({ orden, onUpdate, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`https://pupuseria-nbm3.onrender.com/ordenes/${orden.id}`, formData)
+    axios.put(`${API_URL}/ordenes/${orden.id}`, formData)
       .then(res => {
         alert(res.data.message || 'Orden actualizada correctamente');
         onUpdate();
       })
       .catch(err => console.error('Error al actualizar orden:', err));
   };
+
+  if (!orden) return null; // Si no hay orden seleccionada, no renderiza nada
 
   return (
     <div className="card card-editing">
@@ -70,7 +89,6 @@ function EditarOrden({ orden, onUpdate, onCancel }) {
 
         <div className="form-group">
           <label htmlFor="edit_precio">Precio total de la orden</label>
-          {/* Indicador de moneda: prefijo "$" y sufijo "USD" */}
           <div className="input-group">
             <span className="input-addon" aria-hidden="true">$</span>
             <input
