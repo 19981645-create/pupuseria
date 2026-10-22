@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FormularioOrden from './components/FormularioOrden';
 import ListaOrdenes from './components/ListaOrdenes';
-const API_URL = 'https://pupuseria-api.onrender.com';
+const API_URL = 'https://pupuseria-1.onrender.com';
 
 function App() {
   const [ordenes, setOrdenes] = useState([]);
