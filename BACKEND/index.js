@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors({
-  origin: 'https://pupuseria-1-l12u.onrender.com/', // O coloca la URL exacta de tu frontend en Render
+  origin: 'https://pupuseria-1-l12u.onrender.com', // O coloca la URL exacta de tu frontend en Render
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
