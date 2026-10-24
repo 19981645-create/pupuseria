@@ -1,51 +1,58 @@
 /* ==========================================================================
    Sistema de Gestión — Pupusería Salvadoreña
-   Estilo cálido y artesanal (Maíz, Terracota, Madera, Hoja de Guineo)
+   Estilo oscuro y elegante: fondo azul petróleo, detalles dorados (estilo
+   restaurante) + botones degradados, tarjetas redondeadas y "píldoras" de
+   precio (estilo app móvil de comida).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Marcellus&display=swap');
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
   /* Superficies */
-  --bg: #fdfaf6;            /* Fondo crema claro */
-  --surface: #ffffff;
-  --surface-2: #f7f1e5;
-  --surface-hover: #fcf7ef;
-  --input-bg: #ffffff;
-  --maiz-light: #fff8e1;
+  --bg: #0a1118;
+  --bg-2: #0f1a23;
+  --surface: #121e29;
+  --surface-2: #17263a;
+  --surface-hover: #1a2c3d;
+  --input-bg: #0d1721;
+  --gold-soft: rgba(201, 169, 122, 0.12);
 
   /* Texto */
-  --text: #3e2723;          /* Café tierra oscuro */
-  --heading: #2c1b18;
-  --text-muted: #795548;
-  --placeholder: #a1887f;
+  --text: #e8e2d6;
+  --heading: #f3e3c3;
+  --text-muted: #9aa7b4;
+  --placeholder: #5f7080;
 
   /* Bordes */
-  --border: #ede0d4;
-  --border-strong: #d7ccc8;
+  --border: rgba(201, 169, 122, 0.18);
+  --border-strong: rgba(201, 169, 122, 0.4);
 
-  /* Colores de marca */
-  --primary: #f59e0b;       /* Amarillo Maíz / Dorado */
-  --primary-dark: #d97706;
-  --primary-hover: #fbbf24;
-  --on-primary: #ffffff;
-  
-  --accent: #d97706;        /* Terracota / Barro */
-  --accent-hover: #b45309;
+  /* Marca */
+  --gold: #c9a97a;
+  --gold-light: #e6cc9d;
+  --gold-dark: #a98757;
+  --on-gold: #1a1308;
+
+  --grad-start: #ff9a4d;    /* naranja */
+  --grad-end: #e8486f;      /* rosa */
+  --gradient: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+
+  --primary: var(--gold);
+  --primary-dark: var(--gold-dark);
+  --accent: var(--grad-end);
   --on-accent: #ffffff;
-  
-  --badge-bg: #e8f5e9;      /* Verde hoja de banana / guineo */
-  --badge-text: #2e7d32;
-  
-  --price: #2e7d32;         /* Verde artesanal para el precio */
-  --focus-ring: rgba(245, 158, 11, 0.35);
+
+  --badge-bg: rgba(201, 169, 122, 0.12);
+  --badge-text: var(--gold-light);
+
+  --focus-ring: rgba(255, 154, 77, 0.35);
 
   /* Forma y sombra */
-  --radius: 18px;
-  --radius-sm: 12px;
-  --shadow: 0 8px 28px rgba(62, 39, 35, 0.08);
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
 }
 
 /* ---------- Base ---------- */
@@ -62,73 +69,88 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--bg);
+  background:
+    radial-gradient(900px 500px at 15% -10%, rgba(201, 169, 122, 0.08), transparent 60%),
+    radial-gradient(800px 500px at 100% 0%, rgba(232, 72, 111, 0.07), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
-  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
 h1,
 h2 {
-  font-family: 'Quicksand', 'Nunito', sans-serif;
+  font-family: 'Marcellus', 'Times New Roman', serif;
   color: var(--heading);
+  font-weight: 400;
 }
 
 /* ---------- Hero / Encabezado ---------- */
 
 .hero {
-  background: linear-gradient(180deg, #fef3c7 0%, var(--bg) 100%);
-  padding: 48px 16px 40px;
+  background:
+    linear-gradient(180deg, rgba(10, 17, 24, 0.55) 0%, var(--bg) 100%),
+    radial-gradient(600px 260px at 50% 0%, rgba(201, 169, 122, 0.18), transparent 70%),
+    var(--bg-2);
+  padding: 64px 16px 52px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Burbujas / comales decorativos */
+/* Círculos decorativos (comales) */
 .hero::before,
 .hero::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--border-strong);
   pointer-events: none;
 }
 
 .hero::before {
-  width: 90px;
-  height: 90px;
-  top: 24px;
+  width: 96px;
+  height: 96px;
+  top: 28px;
   left: 8%;
 }
 
 .hero::after {
-  width: 140px;
-  height: 140px;
-  bottom: -40px;
+  width: 160px;
+  height: 160px;
+  bottom: -60px;
   right: 10%;
 }
 
 .hero-eyebrow {
   display: inline-block;
-  font-family: 'Quicksand', sans-serif;
+  font-size: 0.78rem;
   font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--primary-dark);
-  margin-bottom: 6px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
 }
 
 .hero h1 {
-  margin: 0 0 12px;
-  font-size: clamp(1.8rem, 1.3rem + 2.4vw, 2.8rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.4rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.15;
 }
 
 .hero h1 span {
-  color: var(--accent);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero p {
@@ -141,29 +163,41 @@ h2 {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px 64px;
+  padding: 36px 16px 72px;
 }
 
 h2 {
   position: relative;
-  margin: 0 0 28px;
-  font-size: 1.35rem;
-  font-weight: 700;
+  margin: 0 0 32px;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
   text-align: center;
-  padding-bottom: 12px;
+  padding-bottom: 20px;
 }
 
-/* Línea decorativa bajo los títulos */
+/* Ornamento: línea dorada con rombo central */
 .card > h2::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 44px;
-  height: 4px;
-  background-color: var(--accent);
-  border-radius: 2px;
+  width: 120px;
+  height: 10px;
+  background:
+    linear-gradient(var(--gold), var(--gold)) left center / 44px 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right center / 44px 1px no-repeat;
+}
+
+.card > h2::before {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .loading {
@@ -175,25 +209,35 @@ h2 {
 /* ---------- Tarjetas ---------- */
 
 .card {
-  background: var(--surface);
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 32px 28px;
-  margin-bottom: 28px;
+  padding: 36px 30px;
+  margin-bottom: 30px;
 }
 
 .card-form {
-  border-top: 8px solid var(--primary);
+  border-top: 3px solid transparent;
+  border-image: none;
+  position: relative;
+}
+
+.card-form::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--gradient);
 }
 
 .card-editing {
-  border: 2px solid var(--accent);
-  background: #fffaf5;
-}
-
-.card-editing > h2::after {
-  background-color: var(--primary);
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(180deg, #1c2a3a 0%, #142130 100%);
+  box-shadow: 0 0 0 4px var(--gold-soft), var(--shadow);
 }
 
 /* ---------- Formularios ---------- */
@@ -201,7 +245,7 @@ h2 {
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 22px;
 }
 
 .form-group {
@@ -214,10 +258,12 @@ h2 {
 
 .form-group label {
   display: block;
-  margin-bottom: 6px;
-  font-size: 0.85rem;
+  margin-bottom: 8px;
+  font-size: 0.74rem;
   font-weight: 700;
-  color: var(--heading);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 .form-hint {
@@ -230,19 +276,29 @@ h2 {
 .form-grid select,
 .form-grid input {
   width: 100%;
-  min-height: 48px;
+  min-height: 50px;
   padding: 12px 16px;
   font: inherit;
   color: var(--text);
   background-color: var(--input-bg);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-grid select option {
+  background: var(--surface);
+  color: var(--text);
 }
 
 .form-grid input::placeholder {
   color: var(--placeholder);
   opacity: 1;
+}
+
+.form-grid input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8) sepia(0.4) saturate(2) hue-rotate(5deg);
+  cursor: pointer;
 }
 
 .form-grid select:hover,
@@ -253,7 +309,7 @@ h2 {
 .form-grid select:focus-visible,
 .form-grid input:focus-visible {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--grad-start);
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
@@ -266,7 +322,7 @@ h2 {
   border-radius: var(--radius-sm);
   background: var(--input-bg);
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-group:hover {
@@ -274,7 +330,7 @@ h2 {
 }
 
 .input-group:focus-within {
-  border-color: var(--primary);
+  border-color: var(--grad-start);
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
@@ -282,15 +338,15 @@ h2 {
   display: inline-flex;
   align-items: center;
   padding: 0 16px;
-  font-weight: 700;
-  color: var(--primary-dark);
-  background: var(--maiz-light);
+  font-weight: 800;
+  color: var(--gold-light);
+  background: var(--gold-soft);
   user-select: none;
 }
 
 .input-group .input-addon.suffix {
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
 }
 
@@ -300,6 +356,7 @@ h2 {
   box-shadow: none;
   flex: 1;
   min-width: 0;
+  background: transparent;
 }
 
 /* ---------- Botones ---------- */
@@ -309,18 +366,20 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 12px 24px;
+  min-height: 50px;
+  padding: 12px 26px;
   font: inherit;
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
   color: var(--on-accent);
-  background-color: var(--accent);
+  background: var(--gradient);
   border: none;
-  border-radius: 999px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(232, 72, 111, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .btn-submit {
@@ -330,8 +389,9 @@ h2 {
 
 .btn-submit:hover,
 .btn:hover {
-  background-color: var(--accent-hover);
-  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 26px rgba(255, 154, 77, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn-submit:active,
@@ -342,37 +402,44 @@ h2 {
 .btn-submit:focus-visible,
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 /* Variantes */
 .btn-edit {
-  background-color: var(--primary);
-  color: #ffffff;
+  background: var(--gold);
+  color: var(--on-gold);
+  box-shadow: 0 8px 20px rgba(201, 169, 122, 0.2);
 }
 
 .btn-edit:hover {
-  background-color: var(--primary-dark);
-  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+  background: var(--gold-light);
+  filter: none;
+  box-shadow: 0 10px 24px rgba(201, 169, 122, 0.35);
 }
 
 .btn-cancel,
 .btn-delete {
-  background-color: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: none;
 }
 
 .btn-cancel:hover,
 .btn-delete:hover {
-  background-color: var(--accent);
-  color: var(--on-accent);
+  background: rgba(232, 72, 111, 0.14);
+  border-color: var(--grad-end);
+  color: #ff9db3;
+  filter: none;
+  box-shadow: none;
 }
 
 .btn-sm {
   min-height: 36px;
   padding: 6px 16px;
-  font-size: 0.85rem;
+  font-size: 0.74rem;
+  border-radius: 10px;
 }
 
 .form-actions {
@@ -391,7 +458,7 @@ h2 {
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--bg-2);
 }
 
 .custom-table {
@@ -402,25 +469,25 @@ h2 {
 
 .custom-table th,
 .custom-table td {
-  padding: 14px 16px;
+  padding: 16px 18px;
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid var(--border);
 }
 
 .custom-table thead th {
-  background: var(--primary);
-  color: var(--on-primary);
-  font-family: 'Quicksand', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  background: #0c151d;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
+  border-bottom: 1px solid var(--border-strong);
 }
 
 .custom-table tbody tr:nth-child(even) {
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .custom-table tbody tr:last-child td {
@@ -435,28 +502,39 @@ h2 {
   background: var(--surface-hover);
 }
 
+.custom-table td strong {
+  color: var(--heading);
+}
+
 .custom-table .empty-state {
-  padding: 36px 14px;
+  padding: 40px 14px;
   text-align: center;
   color: var(--text-muted);
 }
 
+/* Precio estilo "píldora" degradada de la app */
 .price-tag {
-  font-weight: 700;
-  color: var(--price);
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  color: #fff;
 }
 
-/* Badge estilizado como hoja de guineo/banana */
+.custom-table td.price-tag {
+  color: var(--grad-start);
+}
+
+/* Badge de especialidad: contorno dorado */
 .species-badge {
   display: inline-block;
-  padding: 2px 12px;
+  padding: 3px 14px;
   border-radius: 999px;
   background: var(--badge-bg);
   color: var(--badge-text);
-  font-size: 0.8rem;
+  border: 1px solid var(--border-strong);
+  font-size: 0.78rem;
   font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .acciones {
@@ -469,28 +547,33 @@ h2 {
 
 @media (max-width: 768px) {
   .hero {
-    padding: 32px 12px 28px;
+    padding: 44px 12px 36px;
   }
 
   .container {
-    padding: 16px 12px 32px;
+    padding: 20px 12px 40px;
   }
 
   .card {
-    padding: 22px 16px;
-    border-radius: 14px;
+    padding: 26px 16px;
+    border-radius: 20px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 18px;
   }
 
   .form-actions {
     flex-direction: column;
   }
 
-  /* Tabla convertida en tarjetas */
+  /* Tabla convertida en tarjetas (como la lista de la app móvil) */
+  .table-container {
+    border: none;
+    background: transparent;
+  }
+
   .custom-table,
   .custom-table thead,
   .custom-table tbody,
@@ -506,11 +589,12 @@ h2 {
 
   .custom-table tbody tr,
   .custom-table tbody tr:nth-child(even) {
-    margin: 12px;
+    margin: 0 0 14px;
     padding: 12px 16px;
-    background: var(--surface);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
   }
 
   .custom-table td {
@@ -524,7 +608,7 @@ h2 {
 
   .custom-table td:last-child {
     border-bottom: none;
-    padding-top: 12px;
+    padding-top: 14px;
     justify-content: flex-end;
   }
 
@@ -532,9 +616,10 @@ h2 {
     content: attr(data-label);
     float: left;
     font-weight: 700;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--gold);
     margin-right: 12px;
   }
 }

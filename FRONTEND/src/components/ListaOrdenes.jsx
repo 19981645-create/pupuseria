@@ -12,7 +12,7 @@ function ListaOrdenes({ ordenes = [], onUpdate }) {
 
   const eliminarOrden = (id) => {
     if (window.confirm('¿Seguro que deseas eliminar esta orden?')) {
-      axios.delete(`https://pupuseria-nbm3.onrender.com//ordenes/${id}`)
+      axios.delete(`https://pupuseria-1.onrender.com/ordenes/${id}`)
         .then(res => {
           alert(res.data.message || 'Orden eliminada con éxito');
           onUpdate();
